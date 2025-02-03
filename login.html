@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+   <title>Document</title>
+  <link rel="stylesheet" href="login.css">
+  <style>
+    body {
+      background-color: #9bdf80;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login-page">
+    <div class="form">
+      <form class="login-form">
+        <input type="text" id="username" placeholder="username" required />
+        <input type="password" id="password" placeholder="password" required />
+        <button type="submit">login</button>
+      </form>
+    </div>
+  
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const loginForm = document.querySelector('.login-form');
+    loginForm.addEventListener('submit', function handleLogin(event) {
+        event.preventDefault();
+        const username = document.getElementById('username').value.trim().toLowerCase();
+        const password = document.getElementById('password').value.trim();
+
+        // Use the updated username and password
+        const correctUsername = 'karthu2006'.toLowerCase();
+        const correctPassword = 'KKSS1215';
+
+        // Retrieve and display data
+        if (username === correctUsername && password === correctPassword) {
+          // Redirect to success page
+          window.location.href = 'success-page.html';
+        } else {
+          // Redirect to error page
+          window.location.href = 'error-page.html';
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
