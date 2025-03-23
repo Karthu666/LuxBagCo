@@ -1,75 +1,116 @@
-<html
+<!DOCTYPE html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Create Account</title>
-  <link rel="stylesheet" href="create acc.css">
+  <link rel="stylesheet" href="createac.css"> <!-- Optional: Link to your CSS -->
 </head>
+<body>
 
-<!-- multistep form -->
-<form id="msform">
-    <!-- progressbar -->
+  <!-- Multi-step form -->
+  <form id="msform">
+  
     <ul id="progressbar">
       <li class="active">Account Setup</li>
       <li>Social Profiles</li>
       <li>Personal Details</li>
     </ul>
-    <!-- fieldsets -->
+
+    <!-- Step 1: Account Setup -->
     <fieldset>
       <h2 class="fs-title">Create your account</h2>
       <h3 class="fs-subtitle">This is step 1</h3>
-      <input type="text" name="username" placeholder="username" />
-      <input type="password" name="pass" placeholder="Password" />
-        <input type="button" name="next" class="next action-button" value="Next" />
+      <input type="text" id="username" name="username" placeholder="Username" required />
+      <input type="password" id="pass" name="pass" placeholder="Password" required />
+      <input type="password" id="confirm_pass" name="confirm_pass" placeholder="Confirm Password" required />
+      <input type="button" name="next" class="next action-button" value="Next" />
     </fieldset>
+
+    <!-- Step 2: Social Profiles -->
     <fieldset>
       <h2 class="fs-title">Social Profiles</h2>
-      <h3 class="fs-subtitle">social network account</h3>
+      <h3 class="fs-subtitle">Link your social network account</h3>
       <input type="text" name="facebook" placeholder="Facebook" />
-      <input type="text" name="instagram" placeholder="instagram" />
+      <input type="text" name="instagram" placeholder="Instagram" />
       <input type="button" name="previous" class="previous action-button" value="Previous" />
       <input type="button" name="next" class="next action-button" value="Next" />
     </fieldset>
+
+    <!-- Step 3: Personal Details -->
     <fieldset>
       <h2 class="fs-title">Personal Details</h2>
-      <h3 class="fs-subtitle">won't be shared</h3>
+      <h3 class="fs-subtitle">Details won't be shared</h3>
       <input type="text" name="fname" placeholder="First Name" />
       <input type="text" name="lname" placeholder="Last Name" />
       <input type="text" name="phone" placeholder="Phone" />
       <textarea name="address" placeholder="Address"></textarea>
       <input type="button" name="previous" class="previous action-button" value="Previous" />
-      <a href="homepage2.html" class="submit action-button" target="_top">Submit</a>
+      <input type="button" class="submit action-button" value="Submit" onclick="submitForm()" />
     </fieldset>
   </form>
 
+  <!-- jQuery Script -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-
- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-      $(document).ready(function() {
-        $(".next").click(function() {
-          let current_fs = $(this).parent();
-          let next_fs = current_fs.next();
-          current_fs.hide();
-          next_fs.show();
-        });
-
-        $(".previous").click(function() {
-          let current_fs = $(this).parent();
-          let previous_fs = current_fs.prev();
-          current_fs.hide();
-          previous_fs.show();
-        });
+  <script>
+    // Multi-step form functionality
+    $(document).ready(function() {
+      $(".next").click(function() {
+        let current_fs = $(this).parent();
+        let next_fs = current_fs.next();
+        current_fs.hide();
+        next_fs.show();
       });
 
-function abc()
-{
-alert(localStorage.getItem("username"));
-alert(localStorage.getItem("password"));
-}
+      $(".previous").click(function() {
+        let current_fs = $(this).parent();
+        let previous_fs = current_fs.prev();
+        current_fs.hide();
+        previous_fs.show();
+      });
+    });
 
+    // Function to save form data into localStorage
+    function submitForm() {
+      // Get form values
+      let username = document.getElementById("username").value;
+      let password = document.getElementById("pass").value;
+      let confirmPassword = document.getElementById("confirm_pass").value;
+      
+      // Simple password match validation
+      if (password !== confirmPassword) {
+        alert("Passwords do not match.");
+        return;
+      }
 
-    </script>
-  </body>
+      // Save data to localStorage
+      localStorage.setItem("username", username);
+      localStorage.setItem("password", password);
+
+      // You can save additional data similarly
+      let facebook = document.getElementsByName("facebook")[0].value;
+      let instagram = document.getElementsByName("instagram")[0].value;
+      let fname = document.getElementsByName("fname")[0].value;
+      let lname = document.getElementsByName("lname")[0].value;
+      let phone = document.getElementsByName("phone")[0].value;
+      let address = document.getElementsByName("address")[0].value;
+
+      localStorage.setItem("facebook", facebook);
+      localStorage.setItem("instagram", instagram);
+      localStorage.setItem("fname", fname);
+      localStorage.setItem("lname", lname);
+      localStorage.setItem("phone", phone);
+      localStorage.setItem("address", address);
+
+      // Redirect to a page to view data or show a success message
+      window.location.href = "viewuser.html";  // You can change this to your homepage or another page
+    }
+  </script>
+
+</body>
 </html>
+
 
 
 
